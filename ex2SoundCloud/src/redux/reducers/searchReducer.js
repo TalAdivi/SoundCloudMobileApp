@@ -1,34 +1,30 @@
-import { TEST, SEARCH_QUERY } from '../types';
-import axios from 'axios';
+import { UPDATE_TRACKS_ARRAY, SEARCH_QUERY } from '../types';
 
 const initState = {
   key: 'taladivi',
   searchQuery: '',
-  tracks: []
-};
-
-const getTracksByName = async (trackName) => {
-  const res = await axios({
-    method: 'get',
-    url: `https://api.soundcloud.com/tracks/?client_id=CW62xLA9h8wXrXC1WIaSX9OWA6novVIE&q=${trackName}`
-  }).then((res) => res.data);
-
-  return res;
+  tracks: [],
+  isLoading: true,
+  lastSearches: []
 };
 
 export default (state = initState, action) => {
   switch (action.type) {
-    case TEST:
-      getTracksByName(action.trackName).then((res) => res[2]); // TODO play count?
-
-      return {
-        ...state,
-        key: action.test
-      };
     case SEARCH_QUERY:
+      // console.log('action.searchTracksRequest[1] = ', action.searchTracksRequest[1])
+      // console.log('action.tracks[0] = ', action.tracks[0]);
+      state.lastSearches.unshift(action.searchQuery);
       return {
         ...state,
-        searchQuery: action.searchQuery
+        searchQuery: action.searchQuery,
+        isLoading: true
+      };
+
+    case UPDATE_TRACKS_ARRAY:
+      return {
+        ...state,
+        tracks: action.tracks,
+        isLoading: false
       };
 
     default:

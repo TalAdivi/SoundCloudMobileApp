@@ -3,7 +3,7 @@ import { SearchBar, Button } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { searchQueryAction } from '../redux/actions/searchActions';
+import { searchQueryAction, updateTracksArray } from '../redux/actions/searchActions';
 
 export default function searchBar() {
   //   const { setSearchQuery } = props;
@@ -33,7 +33,10 @@ export default function searchBar() {
             icon={<Icon name="image-search" size={30} />}
             title=""
             iconContainerStyle
-            onPress={() => dispatch(searchQueryAction(search))}
+            onPress={() => {
+              dispatch(searchQueryAction(search));
+              dispatch(updateTracksArray(search));
+            }}
           />
         }
       />

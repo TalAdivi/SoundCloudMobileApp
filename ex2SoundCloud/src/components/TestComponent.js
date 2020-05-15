@@ -13,7 +13,7 @@ const TestComponent = ({ navigation }) => {
   return (
     <View>
       <Text> KEY : {key} </Text>
-      {console.log('navigation = ', navigation)}
+      {/* {console.log('navigation = ', navigation)} */}
       {/* <Text> oneTrack : {tracks[0]} </Text> */}
 
       {/* {console.log('tracks[0] = ', tracks} */}
