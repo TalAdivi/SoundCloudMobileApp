@@ -1,27 +1,49 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, AsyncStorage, Dimensions } from 'react-native';
-import { Button } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { StyleSheet, View, Text, ImageBackground } from 'react-native';
+import { useSelector } from 'react-redux';
 import MySearchBar from './searchBar';
 import TracksScreen from './TracksScreen';
+import LastSearchesBtn from './LastSearchesBtn';
+import { appBackgroundImg } from '../globalConstants';
 
-const { width } = Dimensions.get('window');
-
-export default function MainScreen({ navigation }) {
+export default function MainScreen() {
   const searchQuery = useSelector((state) => state.SearchReducer.searchQuery);
-  // const allTracks = useSelector((state) => state.SearchReducer.tracks);
   return (
-    <View>
-      <MySearchBar />
-      {/* <Text> l : {allTracks[3].stream_url} </Text> */}
-      {/* <Text> searchQuery : {searchQuery} </Text> */}
-      {searchQuery ? (
-        // <Text> there is search val </Text>
-        <TracksScreen />
-      ) : (
-        <Text> WELCOME ! please insert text val </Text>
-      )}
-    </View>
+    <ImageBackground style={styles.flex} source={{ uri: appBackgroundImg }}>
+      <View style={styles.container}>
+        <MySearchBar />
+        {searchQuery ? (
+          <View style={styles.flex}>
+            <ImageBackground style={styles.flex} source={{ uri: appBackgroundImg }}>
+              <TracksScreen />
+            </ImageBackground>
+          </View>
+        ) : (
+          <View>
+            <Text style={styles.welcomeTxt}>WELCOME !</Text>
+            <Text style={styles.welcomeTxt}>Please insert song name</Text>
+          </View>
+        )}
+        <View>
+          <LastSearchesBtn />
+        </View>
+      </View>
+    </ImageBackground>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-between'
+  },
+  welcomeTxt: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: 'black',
+    alignSelf: 'center'
+  },
+  flex: {
+    flex: 1
+  }
+});

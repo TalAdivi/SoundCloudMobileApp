@@ -1,44 +1,36 @@
 import React, { useState } from 'react';
-import { SearchBar, Button } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
+import { SearchBar, Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { searchQueryAction, updateTracksArray } from '../redux/actions/searchActions';
+import searchQueryAction from '../redux/actions/searchActions';
 
 export default function searchBar() {
-  //   const { setSearchQuery } = props;
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
-
   const handleUpdateSearch = (search) => {
     setSearch(search);
   };
 
-  //   const handleSendSearchQuery = () => {
-  //     // setSearchQuery(search);
-  //     // searchQueryAction
-  //   };
-
   return (
     <>
       <SearchBar
-        placeholder="Type Here..."
+        placeholder="Song name..."
         onChangeText={handleUpdateSearch}
         value={search}
-        lightTheme
+        containerStyle={styles.containerStyle}
+        inputContainerStyle={styles.inputContainerStyle}
+        inputStyle={styles.inputStyle}
         searchIcon={
           <Button
             color="#000000"
             buttonStyle={styles.btn}
-            icon={<Icon name="image-search" size={30} />}
-            title=""
+            icon={<Icon name="soundcloud" size={30} />}
             iconContainerStyle
-            onPress={() => {
-              dispatch(searchQueryAction(search));
-              dispatch(updateTracksArray(search));
-            }}
+            onPress={() => dispatch(searchQueryAction(search))}
           />
         }
+        onSubmitEditing={() => dispatch(searchQueryAction(search))}
       />
     </>
   );
@@ -47,5 +39,14 @@ export default function searchBar() {
 const styles = StyleSheet.create({
   btn: {
     backgroundColor: 'transparent'
+  },
+  containerStyle: {
+    backgroundColor: 'black'
+  },
+  inputContainerStyle: {
+    backgroundColor: '#333333'
+  },
+  inputStyle: {
+    color: 'white'
   }
 });
