@@ -1,4 +1,20 @@
 {
+  "checkSubmission": {
+    "ex": 2,
+    "students": [
+      {
+        "id": "204329775",
+        "fullName": "Tal Adivi",
+        "email": "Taladivi10@gmail.com"
+      }
+    ],
+    "os": "Windows", 
+    "device": "Android", 
+    "submissionDate": "17/05/2020", 
+    "delay": false,
+    "delayReason": "",
+    "comments": "" 
+  },
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
